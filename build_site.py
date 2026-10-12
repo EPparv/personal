@@ -81,6 +81,10 @@ speaking_start=about.index('<section class="section"><div class="section-top"><h
 golden_start=about.index('<section class="section"><div class="section-top"><h2>SmartCrowd')
 about=about[:speaking_start]+'''<section class="section"><div class="section-top"><h2>Beyond the company</h2></div><div class="work-heading"><h3>Sharing what I’m learning.</h3><div><p>I speak about tokenization and onchain finance, join conversations with other builders, and support founders as a judge and mentor.</p><p><a class="text-link" href="media.html">Explore media, speaking & recognition ↗</a></p></div></div></section>'''+about[golden_start:]
 about=about.replace('<section class="section"><div class="section-top"><h2>SmartCrowd','<section class="section" id="golden-visa"><div class="section-top"><h2>SmartCrowd')
+# Remove the complete Golden Visa portfolio item and its cross-references.
+home=home.replace('Closed distribution and Golden Visa partnerships.','Closed property distribution partnership.')
+about=re.sub(r'<section class="section" id="golden-visa">.*?</section>', '', about, flags=re.S)
+media=re.sub(r'<article><p class="eyebrow">SmartCrowd partnership</p>.*?</article>', '', media, flags=re.S)
 pages={'index':shell('Founder of Estate Protocol','index',home),'about':shell('About','about',about),'writing':shell('Writing','writing',writing),'media':shell('Media & speaking','media',media)}
 for key,content in pages.items(): (ROOT/(key+'.html')).write_text(content)
 (ROOT/'_redirects').write_text('/about /about.html 200\n/writing /writing.html 200\n/media /media.html 200\n')
